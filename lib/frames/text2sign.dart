@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'textToSignTranslation/textToSignTranslation.dart';
+
+
 class TextToSignLanguage extends StatefulWidget {
   const TextToSignLanguage({Key? key}) : super(key: key);
 
@@ -10,9 +14,14 @@ class _TextToSignLanguageState extends State<TextToSignLanguage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(color: Colors.white,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          // ignore: prefer_const_literals_to_create_immutables
+          children: [
+            const TextToSignTranslation(),
+          ],
+        ),
       ),
     );
   }
