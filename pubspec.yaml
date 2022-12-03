@@ -67,6 +67,7 @@ flutter:
     - assets/labels.txt
     - assets/model_unquant.tflite
     - assets/handA.jpeg
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
