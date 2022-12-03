@@ -40,6 +40,7 @@ dependencies:
   tflite_flutter_helper: ^0.3.1
   image_picker: ^0.8.6
   font_awesome_flutter: ^10.2.1
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +68,8 @@ flutter:
     - assets/handA.jpeg
     - assets/images/
     - assets/icons/
+    - assets/alphabet-sign-lan/
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
