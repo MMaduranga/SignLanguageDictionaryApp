@@ -9,11 +9,11 @@ import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: const Home(),
     theme: ThemeData(
-      primaryColor: Colors.lightBlueAccent,
-      accentColor: Colors.lightBlueAccent
-    ),
+        primaryColor: Colors.lightBlueAccent,
+        accentColor: Colors.lightBlueAccent),
   ));
 }
 
