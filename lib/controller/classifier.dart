@@ -96,6 +96,11 @@ class Classifier {
   void close() {
     interpreter.close();
   }
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "done";
+  }
 }
 
 MapEntry<String, double> getTopProbability(Map<String, double> labeledProb) {

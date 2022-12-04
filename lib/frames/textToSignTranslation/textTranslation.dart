@@ -48,7 +48,10 @@ class TextTranslation extends StatelessWidget {
               ),
             ),
           ),
-          SvgPicture.asset("assets/icons/search.svg"),
+          GestureDetector(
+            onTap: onSubmitted,
+              child: SvgPicture.asset("assets/icons/search.svg")
+          ),
         ],
       ),
     );

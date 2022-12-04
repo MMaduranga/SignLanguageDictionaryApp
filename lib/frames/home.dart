@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'image2text.dart';
+import 'package:sign_language_dictionary_app/frames/signToTextTranslation/signToTextTranslation.dart';
+import '../controller/classifier.dart';
 import 'realtime.dart';
 import 'realtimeAudio.dart';
 import 'text2sign.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
+  late  Classifier? classifier;
+  // const Home({Key? key}) : super(key: key);
+  Home({Key? key,this.classifier}): super(key: key);
   @override
-  State<Home> createState() => _HomeState();
+  State<Home> createState() => _HomeState(classifier: classifier);
 }
 
 class _HomeState extends State<Home> {
+  late  Classifier? classifier;
   List<bool> borderList = [false, false, false, true];
+
+  _HomeState({this.classifier});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -215,7 +220,7 @@ class _HomeState extends State<Home> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ImageToText(),
+                              builder: (context) =>  SignToTextTranslation(title: classifier),
                             ),
                           );
                         },
