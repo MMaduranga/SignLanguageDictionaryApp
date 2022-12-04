@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sign_language_dictionary_app/controller/classifier.dart';
 
 import 'home.dart';
@@ -20,7 +21,7 @@ class _LoadingPageState extends State<LoadingPage> {
     delay();
   }
   void delay() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     delayLoading();
   }
   void delayLoading() {
@@ -35,8 +36,14 @@ class _LoadingPageState extends State<LoadingPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.lightBlueAccent,
+    return const Scaffold(
+      backgroundColor: Color(0xff324dfa),
+      body: Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100.0,
+        ),
+      ),
     );
   }
 }
