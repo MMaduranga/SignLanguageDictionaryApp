@@ -8,13 +8,16 @@ import 'package:image/image.dart' as img;
 import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: const Home(),
-    theme: ThemeData(
-        primaryColor: Colors.lightBlueAccent,
-        accentColor: Colors.lightBlueAccent),
-  ));
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const Home(),
+      theme: ThemeData(
+        primaryColor: Colors.yellowAccent,
+        accentColor: Color(0xff324dfa),
+      ),
+    ),
+  );
 }
 
 // class MyApp extends StatelessWidget {
