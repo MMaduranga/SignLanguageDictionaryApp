@@ -9,10 +9,9 @@ class RealTimeAudioTranslate extends StatefulWidget {
 class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(color: Colors.red,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+    return const Scaffold(
+      body: Center(
+        child:  Text("under construction"),
       ),
     );
   }
