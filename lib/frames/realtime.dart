@@ -11,64 +11,51 @@ class RealTimeTranslate extends StatefulWidget {
 class _RealTimeTranslateState extends State<RealTimeTranslate> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image:const DecorationImage(
-            image: AssetImage('assets/images/realtime.jpg'),
-          ),
-          border: Border.all(color: Colors.lightBlueAccent),
-          borderRadius: BorderRadius.circular(40),
-        ),
-        margin: EdgeInsets.only(
-            left: 15, right: 15, bottom: AppBar().preferredSize.height),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              margin: EdgeInsets.only(right: 15),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width * 0.3,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Icon(
-                        //   Icons.change_circle,
-                        //   size: 40,
-                        // )
-                      ],
+      body: Stack(
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.90,
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 20 * 1.75),
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, bottom: 36 + 20),
+                  height: size.height * 0.9 - 27,
+                  decoration: const BoxDecoration(
+                    color: Color(0xff030a24),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50),
                     ),
-                  )
-                ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.2,
+            left: 0,
+            right: 0,
+            child: Container(
+              margin: const EdgeInsets.all(50),
+              padding: const EdgeInsets.all(20),
+              height: 300,
+              width: 300,
+              child: const FittedBox(
+                fit: BoxFit.fill,
+                child: Text(
+                  'Text',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.width * 0.2,
-              child:const Text(
-                "Iam madhawa MAduranga",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25),
-              ),
-            ),
-            SizedBox(
-              height: AppBar().preferredSize.height * 0.7,
-            )
-          ],
-        ),
+          ),
+        ],
       ),
       drawer: CommonDrawer().funDrawer(context),
       floatingActionButton: Container(
@@ -76,7 +63,7 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
         width: 75,
         child: FloatingActionButton(
           onPressed: () {},
-          child:const Icon(
+          child: const Icon(
             Icons.camera,
             size: 70,
           ),
