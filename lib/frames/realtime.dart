@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:sign_language_dictionary_app/controller/drawer.dart';
 
 class RealTimeTranslate extends StatefulWidget {
@@ -9,6 +12,21 @@ class RealTimeTranslate extends StatefulWidget {
 }
 
 class _RealTimeTranslateState extends State<RealTimeTranslate> {
+  File? image;
+  Future pickImageC() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -57,20 +75,9 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
           ),
         ],
       ),
-      drawer: CommonDrawer().funDrawer(context),
-      floatingActionButton: Container(
-        height: 75,
-        width: 75,
-        child: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(
-            Icons.camera,
-            size: 70,
-          ),
-        ),
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      //floatingActionButtonAnimator:
+      floatingActionButton: FloatingActionButton(onPressed: pickImageC),
+
     );
   }
 }

@@ -35,19 +35,6 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
     }
   }
 
-  Future pickImageC() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-
-      if (image == null) return;
-
-      final imageTemp = File(image.path);
-
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
