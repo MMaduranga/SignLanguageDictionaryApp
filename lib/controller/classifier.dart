@@ -21,7 +21,6 @@ class Classifier {
   late List<String> labels;
   var localModelPath;
 
-
   Classifier({int? numThreads: 1}) {
     _interpreterOptions = InterpreterOptions();
     // if (numThreads != null) {
@@ -64,7 +63,7 @@ class Classifier {
     return ImageProcessorBuilder()
         .add(ResizeWithCropOrPadOp(cropSize, cropSize))
         .add(ResizeOp(
-        _inputShape[1], _inputShape[2], ResizeMethod.NEAREST_NEIGHBOUR))
+            _inputShape[1], _inputShape[2], ResizeMethod.NEAREST_NEIGHBOUR))
         .add(NormalizeOp(0, 1))
         .build()
         .process(_inputImage);
@@ -86,7 +85,7 @@ class Classifier {
     print('Time to run inference: $run ms');
 
     Map<String, double> labeledProb = TensorLabel.fromList(
-        labels, _probabilityProcessor.process(_outputBuffer))
+            labels, _probabilityProcessor.process(_outputBuffer))
         .getMapWithFloatValue();
     final pred = getTopProbability(labeledProb);
 
@@ -96,6 +95,7 @@ class Classifier {
   void close() {
     interpreter.close();
   }
+
   @override
   String toString() {
     // TODO: implement toString
