@@ -197,7 +197,7 @@ class _HomeState extends State<Home> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RealTimeTranslate(),
+                              builder: (context) =>  RealTimeTranslate(title: classifier),
                             ),
                           );
                         },
