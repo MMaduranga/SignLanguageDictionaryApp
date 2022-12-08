@@ -1,18 +1,19 @@
+// ignore_for_file: avoid_print, no_logic_in_create_state, depend_on_referenced_packages
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image/image.dart' as img;
 import 'dart:io';
-import 'package:sign_language_dictionary_app/controller/drawer.dart';
-import 'package:sign_language_dictionary_app/controller/test.dart';
 
 import '../controller/classifier.dart';
+import '../controller/test.dart';
 import '../main.dart';
-import 'package:image/image.dart' as img;
 
 class RealTimeTranslate extends StatefulWidget {
   final Classifier? title;
-  RealTimeTranslate({Key? key, this.title}) : super(key: key);
+  const RealTimeTranslate({Key? key, this.title}) : super(key: key);
 
   @override
   State<RealTimeTranslate> createState() =>
@@ -27,20 +28,20 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
   String? score;
   Classifier? classifier;
   bool grid = false;
-  bool camStatus=false;
+  bool camStatus = false;
 
   _RealTimeTranslateState({this.classifier});
 
-
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     loadCamera();
   }
 
   Future predict(var pickedFile) async {
-    pickedFile =Test().convertYUV420toImageColor(pickedFile);
+    pickedFile = Test().convertYUV420toImageColor(pickedFile);
     _image = File(pickedFile!.path);
     img.Image imageInput = img.decodeImage(_image!.readAsBytesSync())!;
     var pred = classifier!.predict(imageInput);
@@ -48,29 +49,32 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
     label = pred.label;
     print("********************************************");
     print(label);
-
   }
-@override
-  void dispose(){
-    super.dispose();
-  cameraController!.dispose();
 
-}
+  @override
+  void dispose() {
+    super.dispose();
+    cameraController!.dispose();
+  }
+
   void loadCamera() {
     cameraController = CameraController(camera![0], ResolutionPreset.medium);
-    cameraController!.initialize().then((value) {
-      if (!mounted) {
-        return;
-      } else {
-        setState(() {
-          cameraController!.startImageStream((imageStream) {
-            grid = true;
-            //predict(imageStream);
-
+    cameraController!.initialize().then(
+      (value) {
+        if (!mounted) {
+          return;
+        } else {
+          setState(() {
+            cameraController!.startImageStream(
+              (imageStream) {
+                grid = true;
+                //predict(imageStream);
+              },
+            );
           });
-        });
-      }
-    });
+        }
+      },
+    );
   }
 
   Future pickImageC() async {
@@ -113,7 +117,7 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
                           ),
                         ),
                       )
-                    :CameraPreview(cameraController!),
+                    : CameraPreview(cameraController!),
               ),
             ],
           ),
@@ -138,18 +142,21 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        if(!camStatus){
-          camStatus=true;
-          loadCamera();
-        } else{
-          setState(() {
-            grid=false;
-            camStatus=false;
-          });
-        }
-
-      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (!camStatus) {
+            camStatus = true;
+            loadCamera();
+          } else {
+            setState(
+              () {
+                grid = false;
+                camStatus = false;
+              },
+            );
+          }
+        },
+      ),
     );
   }
 }
