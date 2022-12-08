@@ -63,7 +63,7 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
                         left: 20, right: 20, bottom: 36 + 20),
                     height: size.height * 0.9 - 27,
                     decoration: const BoxDecoration(
-                      color: Color(0xff030a24),
+                      color: Color(0xff324dfa),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(50),
                         bottomRight: Radius.circular(50),
