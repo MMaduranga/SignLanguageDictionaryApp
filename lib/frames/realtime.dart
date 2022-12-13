@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
+import 'package:sign_language_dictionary_app/constants.dart';
 import 'dart:io';
 
 import '../controller/classifier.dart';
@@ -110,7 +111,7 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
                             left: 20, right: 20, bottom: 36 + 20),
                         height: size.height * 0.9 - 27,
                         decoration: const BoxDecoration(
-                          color: Color(0xff030a24),
+                          color: primaryColor,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(50),
                             bottomRight: Radius.circular(50),
