@@ -19,6 +19,7 @@ class TextToSignTranslation extends StatefulWidget {
 
 class _TextToSignTranslationState extends State<TextToSignTranslation> {
   final phraseController = TextEditingController();
+  String unavailableString = '';
 
   String _signString = 'Translate';
 
@@ -32,7 +33,15 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
       (Timer t) => setState(
         () {
           if (i < signString.length) {
-            _signString = signString[i];
+            // check if signString is a english letter
+            if (signString[i].codeUnitAt(0) > 96 &&
+                signString[i].codeUnitAt(0) < 123) {
+              _signString = signString[i];
+            } else {
+              unavailableString = signString[i];
+              _signString = 'unavailable';
+            }
+
             i++;
           } else {
             t.cancel();
@@ -98,11 +107,24 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
               bottom: 70,
               left: 0,
               right: 0,
-              child: Center(
-                child: Text(
-                  _signString.toUpperCase(),
-                  style: const TextStyle(fontSize: 50, color: Colors.white),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Visibility(
+                    visible: _signString == 'unavailable' ? true : false,
+                    child: Text(
+                      '$unavailableString is unavailable',
+                      style: const TextStyle(fontSize: 40, color: Colors.white),
+                    ),
+                  ),
+                  Visibility(
+                    visible: _signString == 'unavailable' ? false : true,
+                    child: Text(
+                      _signString.toUpperCase(),
+                      style: const TextStyle(fontSize: 50, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ),
             Positioned(
