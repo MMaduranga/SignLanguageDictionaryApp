@@ -38,6 +38,7 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
 
   @override
   Widget build(BuildContext context) {
+    double sizeHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -84,6 +85,9 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 50,
+              ),
               FloatingActionButton(
                 onPressed: () {
                   pickImage();
@@ -94,15 +98,26 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
   Widget imageContainer(BuildContext context, ImageProvider img) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.7,
-      decoration:
-          BoxDecoration(image: DecorationImage(image: img, fit: BoxFit.fill)),
+    return Column(
+      children: [
+        const SizedBox(
+          height: 80,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.5,
+          decoration: BoxDecoration(
+              image: DecorationImage(image: img, fit: BoxFit.fill)),
+        ),
+        const SizedBox(
+          height: 60,
+        ),
+      ],
     );
   }
 
