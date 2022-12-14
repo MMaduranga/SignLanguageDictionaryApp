@@ -48,9 +48,11 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                   padding: const EdgeInsets.all(20),
                   height: 300,
                   width: 300,
-                  child: const FittedBox(
+                  child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Text("hi"),
+                    child: Image.asset(
+                      'assets/icons/icons8-audio-wave-500.png',
+                    ),
                   ),
                 ),
               ),
@@ -74,42 +76,45 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                       ),
                     ],
                   ),
-                  child:  Text(audioController.speechText),
+                  child: Text(audioController.speechText),
                 ),
               ),
             ],
           ),
           Center(
-              child: GestureDetector(
-                onTap: (){
-                  audioController.listen();
-                },
-                  child: AvatarGlow(
-            animate: audioController.isListening.value,
-            endRadius: 70.0,
-            showTwoGlows: true,
-            glowColor: Colors.blue.shade900,
-            child: Container(
-                height: 60,
-                width: 60,
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.circular(40),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 10),
-                      blurRadius: 50,
-                      color: primaryTeal.withOpacity(0.23),
-                    ),
-                  ],
+            child: GestureDetector(
+              onTap: () {
+                audioController.listen();
+              },
+              child: AvatarGlow(
+                animate: audioController.isListening.value,
+                endRadius: 70.0,
+                showTwoGlows: true,
+                glowColor: Colors.blue.shade900,
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: const Offset(0, 10),
+                        blurRadius: 50,
+                        color: primaryTeal.withOpacity(0.23),
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    audioController.isListening.value
+                        ? Icons.mic
+                        : Icons.mic_none,
+                    color: Colors.white,
+                  ),
                 ),
-                child: Icon(
-                  audioController.isListening.value
-                      ? Icons.mic
-                      : Icons.mic_none,
-                  color: Colors.white,
-                )),
-          ))),
+              ),
+            ),
+          ),
         ],
       ),
     );
