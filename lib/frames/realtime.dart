@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, no_logic_in_create_state, depend_on_referenced_packages
 
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -143,20 +144,25 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (!camStatus) {
-            camStatus = true;
-            loadCamera();
-          } else {
-            setState(
-              () {
-                grid = false;
-                camStatus = false;
-              },
-            );
-          }
-        },
+      floatingActionButton: AvatarGlow(
+        endRadius: 50.0,
+        glowColor: Colors.blue.shade900,
+        animate: camStatus,
+        child: FloatingActionButton(
+          onPressed: () {
+            if (!camStatus) {
+              camStatus = true;
+              loadCamera();
+            } else {
+              setState(
+                () {
+                  grid = false;
+                  camStatus = false;
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }
