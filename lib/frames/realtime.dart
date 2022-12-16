@@ -146,7 +146,7 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
         endRadius: 50.0,
-        glowColor: Colors.blue.shade900,
+        glowColor: Colors.lightBlueAccent,
         animate: camStatus,
         child: FloatingActionButton(
           onPressed: () {
