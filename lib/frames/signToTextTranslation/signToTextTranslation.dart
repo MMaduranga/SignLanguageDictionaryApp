@@ -71,10 +71,11 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                 right: 0,
                 child: Container(
                   margin: EdgeInsets.only(
-                      top: AppBar().preferredSize.height * 0.7,
-                      bottom: 20,
-                      left: 20,
-                      right: 20),
+                    top: AppBar().preferredSize.height * 0.7,
+                    bottom: 20,
+                    left: 20,
+                    right: 20,
+                  ),
                   height: frameHeight * 0.75,
                   width: MediaQuery.of(context).size.width,
                   child: FittedBox(
@@ -84,11 +85,14 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.lightBlueAccent),
                             ),
-                            child: Image.file(image!))
+                            child: Image.file(image!),
+                          )
                         : imageContainer(
                             context,
                             const AssetImage(
-                                'assets/images/icons8-sign-to-text-image-512.png')),
+                              'assets/images/icons8-image-500.png',
+                            ),
+                          ),
                   ),
                 ),
               ),
@@ -98,7 +102,9 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                 right: 0,
                 child: Container(
                   margin: const EdgeInsets.all(20),
-                  padding:label=="Select a image..."? const EdgeInsets.all(20):const EdgeInsets.symmetric(horizontal: 20),
+                  padding: label == "Select a image..."
+                      ? const EdgeInsets.all(20)
+                      : const EdgeInsets.symmetric(horizontal: 20),
                   height: frameHeight * 0.07,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
@@ -113,11 +119,12 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                     ],
                   ),
                   child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Text(
-                    label,
-                    textAlign: TextAlign.center,
-                  )),
+                    fit: BoxFit.contain,
+                    child: Text(
+                      label,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -142,9 +149,10 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
         ),
         Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: MediaQuery.of(context).size.height * 0.2,
           decoration: BoxDecoration(
-              image: DecorationImage(image: img, fit: BoxFit.fill)),
+            image: DecorationImage(image: img, fit: BoxFit.fill),
+          ),
         ),
         const SizedBox(
           height: 60,

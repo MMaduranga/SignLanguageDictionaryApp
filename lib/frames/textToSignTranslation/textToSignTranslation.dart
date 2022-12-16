@@ -42,7 +42,6 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
               unavailableString = signString[i];
               _signString = 'unavailable';
             }
-
             i++;
           } else {
             t.cancel();
