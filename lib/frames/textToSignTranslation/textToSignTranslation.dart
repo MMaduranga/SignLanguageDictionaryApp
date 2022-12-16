@@ -104,7 +104,7 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
               ),
             ),
             Positioned(
-              bottom: 70,
+              bottom: MediaQuery.of(context).size.height*0.1,
               left: 0,
               right: 0,
               child: Row(

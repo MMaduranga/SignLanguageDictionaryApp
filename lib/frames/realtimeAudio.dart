@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_language_dictionary_app/constants.dart';
@@ -12,6 +14,39 @@ class RealTimeAudioTranslate extends StatefulWidget {
 
 class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
   AudioController audioController = AudioController();
+  String _signString = 'Translate';
+  String unavailableString = '';
+
+  void _renderTranslation() {
+    // to lower case
+    String signString = audioController.speechText.toLowerCase();
+    var i = 0;
+    // execute every 2 seconds
+    Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer t) => setState(
+        () {
+          if (i < signString.length) {
+            // check if signString is a english letter
+            if (signString[i].codeUnitAt(0) > 96 &&
+                signString[i].codeUnitAt(0) < 123) {
+              _signString = signString[i];
+            } else {
+              unavailableString = signString[i];
+              _signString = 'unavailable';
+            }
+
+            i++;
+          } else {
+            t.cancel();
+            audioController.speechText = "Speak......";
+            _signString = 'Translate';
+          }
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double frameHeight = MediaQuery.of(context).size.height;
@@ -43,17 +78,47 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                 top: frameHeight * 0.2,
                 left: 0,
                 right: 0,
-                child: Container(
-                  margin: const EdgeInsets.all(50),
-                  padding: const EdgeInsets.all(20),
-                  height: 300,
-                  width: 300,
-                  child: FittedBox(
-                    fit: BoxFit.fill,
-                    child: Image.asset(
-                      'assets/icons/icons8-audio-wave-500.png',
+                child: Visibility(
+                  // if the signString is not empty, show the sign
+                  visible: _signString == ' ' ? false : true,
+                  child: Container(
+                    margin: const EdgeInsets.all(50),
+                    padding: const EdgeInsets.all(20),
+                    height: 300,
+                    width: 300,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.asset(
+                        'assets/alphabet-sign-lan/icons8-sign-language-$_signString-500.png',
+                      ),
                     ),
                   ),
+                ),
+              ),
+              Positioned(
+                bottom: frameHeight * 0.1,
+                left: 0,
+                right: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Visibility(
+                      visible: _signString == 'unavailable' ? true : false,
+                      child: Text(
+                        '$unavailableString is unavailable',
+                        style:
+                            const TextStyle(fontSize: 40, color: Colors.white),
+                      ),
+                    ),
+                    Visibility(
+                      visible: _signString == 'unavailable' ? false : true,
+                      child: Text(
+                        _signString.toUpperCase(),
+                        style:
+                            const TextStyle(fontSize: 50, color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Positioned(
@@ -63,7 +128,7 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                 child: Container(
                   margin: const EdgeInsets.all(20),
                   padding: const EdgeInsets.all(20),
-                  height: frameHeight * 0.075,
+                  height: frameHeight * 0.07,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -84,13 +149,25 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
           Center(
             child: GestureDetector(
               onTap: () {
-                audioController.listen();
+                if (!audioController.isListening.value) {
+                  setState(() {
+                    audioController.speechText = 'Listening...';
+                  });
+                  audioController.listen();
+                } else {
+                  audioController.notListen();
+                  setState(() {});
+                  Future.delayed(const Duration(seconds: 2));
+                  setState(() {
+                    _renderTranslation();
+                  });
+                }
               },
               child: AvatarGlow(
                 animate: audioController.isListening.value,
                 endRadius: 70.0,
                 showTwoGlows: true,
-                glowColor: Colors.blue.shade900,
+                glowColor: Colors.lightBlueAccent,
                 child: Container(
                   height: 60,
                   width: 60,
