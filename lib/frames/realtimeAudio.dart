@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
 
 import 'package:avatar_glow/avatar_glow.dart';
@@ -14,7 +16,7 @@ class RealTimeAudioTranslate extends StatefulWidget {
 
 class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
   AudioController audioController = AudioController();
-  String _signString = 'Translate';
+  String _signString = 'Audio Translate';
   String unavailableString = '';
 
   void _renderTranslation() {
@@ -29,7 +31,8 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
           if (i < signString.length) {
             // check if signString is a english letter
             if (signString[i].codeUnitAt(0) > 96 &&
-                signString[i].codeUnitAt(0) < 123) {
+                    signString[i].codeUnitAt(0) < 123 ||
+                signString[i].codeUnitAt(0) == 32) {
               _signString = signString[i];
             } else {
               unavailableString = signString[i];
@@ -40,7 +43,7 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
           } else {
             t.cancel();
             audioController.speechText = "Speak......";
-            _signString = 'Translate';
+            _signString = 'Audio Translate';
           }
         },
       ),
@@ -96,7 +99,7 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                 ),
               ),
               Positioned(
-                bottom: frameHeight * 0.1,
+                bottom: frameHeight * 0.12,
                 left: 0,
                 right: 0,
                 child: Row(
@@ -115,7 +118,7 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                       child: Text(
                         _signString.toUpperCase(),
                         style:
-                            const TextStyle(fontSize: 50, color: Colors.white),
+                            const TextStyle(fontSize: 40, color: Colors.white),
                       ),
                     ),
                   ],

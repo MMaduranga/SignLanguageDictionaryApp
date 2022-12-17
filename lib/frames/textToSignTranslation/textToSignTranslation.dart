@@ -21,7 +21,7 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
   final phraseController = TextEditingController();
   String unavailableString = '';
 
-  String _signString = 'Translate';
+  String _signString = 'Text Translate';
 
   void _renderTranslation(String signString) {
     // to lower case
@@ -35,17 +35,17 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
           if (i < signString.length) {
             // check if signString is a english letter
             if (signString[i].codeUnitAt(0) > 96 &&
-                signString[i].codeUnitAt(0) < 123) {
+                    signString[i].codeUnitAt(0) < 123 ||
+                signString[i].codeUnitAt(0) == 32) {
               _signString = signString[i];
             } else {
               unavailableString = signString[i];
               _signString = 'unavailable';
             }
-
             i++;
           } else {
             t.cancel();
-            _signString = 'Translate';
+            _signString = 'Text Translate';
           }
         },
       ),
@@ -104,7 +104,7 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
               ),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height*0.1,
+              bottom: MediaQuery.of(context).size.height * 0.1,
               left: 0,
               right: 0,
               child: Row(
@@ -121,7 +121,7 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
                     visible: _signString == 'unavailable' ? false : true,
                     child: Text(
                       _signString.toUpperCase(),
-                      style: const TextStyle(fontSize: 50, color: Colors.white),
+                      style: const TextStyle(fontSize: 40, color: Colors.white),
                     ),
                   ),
                 ],
