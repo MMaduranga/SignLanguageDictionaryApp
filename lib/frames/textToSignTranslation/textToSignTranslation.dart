@@ -96,8 +96,10 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
                   width: 300,
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Image.asset(_signString == 'Text Translate'? 'assets/images/typing animation.gif':
-                      'assets/alphabet-sign-lan/icons8-sign-language-$_signString-500.png',
+                    child: Image.asset(
+                      _signString == 'Text Translate'
+                          ? 'assets/images/typing animation.gif'
+                          : 'assets/alphabet-sign-lan/icons8-sign-language-$_signString-500.png',
                     ),
                   ),
                 ),
@@ -114,14 +116,20 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
                     visible: _signString == 'unavailable' ? true : false,
                     child: Text(
                       '$unavailableString is unavailable',
-                      style: const TextStyle(fontSize: 40, color: Colors.white),
+                      style: const TextStyle(
+                        fontSize: 40,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   Visibility(
                     visible: _signString == 'unavailable' ? false : true,
                     child: Text(
                       _signString.toUpperCase(),
-                      style: const TextStyle(fontSize: 40, color: Colors.white),
+                      style: const TextStyle(
+                        fontSize: 40,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
