@@ -3,14 +3,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:sign_language_dictionary_app/constants.dart';
 import 'dart:io';
 
 import '../controller/classifier.dart';
-import '../controller/test.dart';
 import '../main.dart';
 
 class RealTimeTranslate extends StatefulWidget {
@@ -32,20 +29,19 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
   bool grid = false;
   bool camStatus = false;
   int imageCount = 0;
-  Color frameColor=primaryColor;
+  Color frameColor = primaryColor;
 
   _RealTimeTranslateState({this.classifier});
 
   @override
   void initState() {
     // ignore: todo
-    // TODO: implement initState
     super.initState();
   }
 
   Future predict(var pickedFile) async {
     _image = File(pickedFile!.path);
-    img.Image imageInput = img.decodeImage(_image!.readAsBytesSync())!;
+    img.Image imageInput = img.decodeImage(_image.readAsBytesSync())!;
     var pred = classifier!.predict(imageInput);
     score = pred.score.toStringAsFixed(3);
     label = pred.label;
@@ -65,18 +61,20 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
         if (!mounted) {
           return;
         } else {
-          setState(() {
-            cameraController!.startImageStream(
-              (imageStream) {
-                grid = true;
-                imageCount++;
-                print(imageCount);
-                if (imageCount % 30 == 0) {
-                  handlePredict(imageStream);
-                }
-              },
-            );
-          });
+          setState(
+            () {
+              cameraController!.startImageStream(
+                (imageStream) {
+                  grid = true;
+                  imageCount++;
+                  print(imageCount);
+                  if (imageCount % 30 == 0) {
+                    handlePredict(imageStream);
+                  }
+                },
+              );
+            },
+          );
         }
       },
     );
@@ -119,10 +117,13 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
                 child: !grid
                     ? Container(
                         padding: const EdgeInsets.only(
-                            left: 20, right: 20, bottom: 36 + 20),
+                          left: 20,
+                          right: 20,
+                          bottom: 36 + 20,
+                        ),
                         decoration: BoxDecoration(
                           color: frameColor,
-                          borderRadius:const BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(50),
                             bottomRight: Radius.circular(50),
                           ),
@@ -141,11 +142,18 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
               child: label == null
                   ? const Text(
                       "VIDEO TRANSLATE ",
-                      style: TextStyle(color: Colors.white, fontSize: 40),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                      ),
                     )
-                  : Text(label.toString(),
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 30)),
+                  : Text(
+                      label.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                      ),
+                    ),
             ),
           ),
           Positioned(
@@ -153,7 +161,7 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
             left: 0,
             right: 0,
             child: Visibility(
-              visible:!camStatus,
+              visible: !camStatus,
               child: Image.asset(
                 'assets/images/camera animation.gif',
                 width: 300,
