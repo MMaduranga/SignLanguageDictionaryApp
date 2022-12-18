@@ -24,7 +24,7 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
   _SignToTextTranslationState({this.classifier});
   late File _image;
   String label = "Select a image...";
-  String score="";
+  String score = "";
 
   Future pickImage() async {
     try {
@@ -50,7 +50,10 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                 children: [
                   Container(
                     padding: const EdgeInsets.only(
-                        left: 20, right: 20, bottom: 36 + 20),
+                      left: 20,
+                      right: 20,
+                      bottom: 36 + 20,
+                    ),
                     height: frameHeight * 0.85,
                     decoration: const BoxDecoration(
                       color: primaryColor,
@@ -83,7 +86,9 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                     child: image != null
                         ? Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.lightBlueAccent),
+                              border: Border.all(
+                                color: Colors.lightBlueAccent,
+                              ),
                             ),
                             child: Image.file(image!),
                           )
@@ -96,11 +101,16 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                   ),
                 ),
               ),
-            Positioned(
+              Positioned(
                 top: frameHeight * 0.7,
                 left: 0,
                 right: 0,
-                child:const Center(child:  Text('IMAGE TRANSLATE',style: TextStyle(fontSize: 40,color: Colors.white),)),
+                child: const Center(
+                  child: Text(
+                    'IMAGE TRANSLATE',
+                    style: TextStyle(fontSize: 40, color: Colors.white),
+                  ),
+                ),
               ),
               Positioned(
                 top: frameHeight * 0.775,
