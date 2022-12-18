@@ -31,6 +31,8 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
   Classifier? classifier;
   bool grid = false;
   bool camStatus = false;
+  int imageCount = 0;
+  Color frameColor=primaryColor;
 
   _RealTimeTranslateState({this.classifier});
 
@@ -39,11 +41,9 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
     // ignore: todo
     // TODO: implement initState
     super.initState();
-    loadCamera();
   }
 
   Future predict(var pickedFile) async {
-    pickedFile = Test().convertYUV420toImageColor(pickedFile);
     _image = File(pickedFile!.path);
     img.Image imageInput = img.decodeImage(_image!.readAsBytesSync())!;
     var pred = classifier!.predict(imageInput);
@@ -56,10 +56,9 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
   @override
   void dispose() {
     super.dispose();
-    cameraController!.dispose();
   }
 
-  void loadCamera() {
+  Future loadCamera() async {
     cameraController = CameraController(camera![0], ResolutionPreset.medium);
     cameraController!.initialize().then(
       (value) {
@@ -70,7 +69,11 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
             cameraController!.startImageStream(
               (imageStream) {
                 grid = true;
-                //predict(imageStream);
+                imageCount++;
+                print(imageCount);
+                if (imageCount % 30 == 0) {
+                  handlePredict(imageStream);
+                }
               },
             );
           });
@@ -79,19 +82,26 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
     );
   }
 
-  Future pickImageC() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-
-      if (image == null) return;
-
-      final imageTemp = File(image.path);
-
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
+  void handlePredict(imageStream) async {
+    img.Image imageModel = img.Image.fromBytes(
+        imageStream.width, imageStream.height, imageStream.planes[0].bytes,
+        format: img.Format.bgra);
+    await predict(img.encodeJpg(imageModel));
   }
+
+  // Future pickImageC() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.camera);
+  //
+  //     if (image == null) return;
+  //
+  //     final imageTemp = File(image.path);
+  //
+  //     setState(() => this.image = imageTemp);
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -104,16 +114,15 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.90,
+                height: size.height * 0.89,
+                width: size.width,
                 child: !grid
                     ? Container(
-                        margin: const EdgeInsets.only(bottom: 20 * 1.75),
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 36 + 20),
-                        height: size.height * 0.9 - 27,
-                        decoration: const BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.only(
+                        decoration: BoxDecoration(
+                          color: frameColor,
+                          borderRadius:const BorderRadius.only(
                             bottomLeft: Radius.circular(50),
                             bottomRight: Radius.circular(50),
                           ),
@@ -124,45 +133,84 @@ class _RealTimeTranslateState extends State<RealTimeTranslate> {
             ],
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.2,
+            top: size.height * 0.75,
             left: 0,
             right: 0,
             child: Container(
-              margin: const EdgeInsets.all(50),
-              padding: const EdgeInsets.all(20),
-              height: 300,
-              width: 300,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Text(
-                  label == null ? "Hi" : label.toString(),
-                  style: const TextStyle(color: Colors.white),
+              alignment: Alignment.center,
+              child: label == null
+                  ? const Text(
+                      "VIDEO TRANSLATE ",
+                      style: TextStyle(color: Colors.white, fontSize: 40),
+                    )
+                  : Text(label.toString(),
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 30)),
+            ),
+          ),
+          Positioned(
+            top: size.height * 0.3,
+            left: 0,
+            right: 0,
+            child: Visibility(
+              visible:!camStatus,
+              child: Image.asset(
+                'assets/images/camera animation.gif',
+                width: 300,
+                height: 300,
+              ),
+            ),
+          ),
+          Positioned(
+            top: size.height * 0.85,
+            left: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: () {
+                if (!camStatus) {
+                  camStatus = true;
+                  loadCamera();
+                } else {
+                  cameraController!.dispose();
+                  setState(
+                    () {
+                      grid = false;
+                      camStatus = false;
+                      imageCount = 0;
+                    },
+                  );
+                }
+              },
+              child: AvatarGlow(
+                animate: camStatus,
+                endRadius: 70.0,
+                showTwoGlows: true,
+                glowColor: Colors.lightBlueAccent,
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    color: frameColor,
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: const Offset(0, 10),
+                        blurRadius: 50,
+                        color: primaryTeal.withOpacity(0.23),
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    camStatus
+                        ? Icons.add_a_photo_sharp
+                        : Icons.add_a_photo_outlined,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AvatarGlow(
-        endRadius: 50.0,
-        glowColor: Colors.lightBlueAccent,
-        animate: camStatus,
-        child: FloatingActionButton(
-          onPressed: () {
-            if (!camStatus) {
-              camStatus = true;
-              loadCamera();
-            } else {
-              setState(
-                () {
-                  grid = false;
-                  camStatus = false;
-                },
-              );
-            }
-          },
-        ),
       ),
     );
   }

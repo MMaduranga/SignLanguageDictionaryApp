@@ -24,7 +24,7 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
   _SignToTextTranslationState({this.classifier});
   late File _image;
   String label = "Select a image...";
-  String? score;
+  String score="";
 
   Future pickImage() async {
     try {
@@ -90,11 +90,17 @@ class _SignToTextTranslationState extends State<SignToTextTranslation> {
                         : imageContainer(
                             context,
                             const AssetImage(
-                              'assets/images/icons8-image-500.png',
+                              'assets/images/gallery_animation.gif',
                             ),
                           ),
                   ),
                 ),
+              ),
+            Positioned(
+                top: frameHeight * 0.7,
+                left: 0,
+                right: 0,
+                child:const Center(child:  Text('IMAGE TRANSLATE',style: TextStyle(fontSize: 40,color: Colors.white),)),
               ),
               Positioned(
                 top: frameHeight * 0.775,
