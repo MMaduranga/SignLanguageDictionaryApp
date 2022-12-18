@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:sign_language_dictionary_app/frames/signToTextTranslation/signToTextTranslation.dart';
 import '../controller/classifier.dart';
@@ -6,15 +8,15 @@ import 'realtimeAudio.dart';
 import 'text2sign.dart';
 
 class Home extends StatefulWidget {
-  late  Classifier? classifier;
+  late Classifier? classifier;
   // const Home({Key? key}) : super(key: key);
-  Home({Key? key,this.classifier}): super(key: key);
+  Home({Key? key, this.classifier}) : super(key: key);
   @override
   State<Home> createState() => _HomeState(classifier: classifier);
 }
 
 class _HomeState extends State<Home> {
-  late  Classifier? classifier;
+  late Classifier? classifier;
   List<bool> borderList = [false, false, false, true];
 
   _HomeState({this.classifier});
@@ -49,10 +51,11 @@ class _HomeState extends State<Home> {
                   height: containerHight * 0.4,
                   width: containerWidth,
                   decoration: BoxDecoration(
-                      color: containerColor,
-                      borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(50),
-                      )),
+                    color: containerColor,
+                    borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(50),
+                    ),
+                  ),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -94,9 +97,10 @@ class _HomeState extends State<Home> {
                           child: Text(
                             "What can I\ntranslate for\nyou today?",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 40,
-                                fontFamily: 'Montserrat'),
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontFamily: 'Montserrat',
+                            ),
                           ),
                         )
                       ],
@@ -116,10 +120,11 @@ class _HomeState extends State<Home> {
                     height: containerHight * 0.075,
                     width: size.width,
                     decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(70),
-                        )),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(70),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -158,11 +163,13 @@ class _HomeState extends State<Home> {
                       const SizedBox(width: 30),
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            borderList[1] = true;
-                            borderList[0] =
-                                borderList[2] = borderList[3] = false;
-                          });
+                          setState(
+                            () {
+                              borderList[1] = true;
+                              borderList[0] =
+                                  borderList[2] = borderList[3] = false;
+                            },
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -189,15 +196,18 @@ class _HomeState extends State<Home> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            borderList[0] = true;
-                            borderList[1] =
-                                borderList[2] = borderList[3] = false;
-                          });
+                          setState(
+                            () {
+                              borderList[0] = true;
+                              borderList[1] =
+                                  borderList[2] = borderList[3] = false;
+                            },
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>  RealTimeTranslate(title: classifier),
+                              builder: (context) =>
+                                  RealTimeTranslate(title: classifier),
                             ),
                           );
                         },
@@ -212,15 +222,18 @@ class _HomeState extends State<Home> {
                       const SizedBox(width: 30),
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            borderList[2] = true;
-                            borderList[0] =
-                                borderList[1] = borderList[3] = false;
-                          });
+                          setState(
+                            () {
+                              borderList[2] = true;
+                              borderList[0] =
+                                  borderList[1] = borderList[3] = false;
+                            },
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>  SignToTextTranslation(title: classifier),
+                              builder: (context) =>
+                                  SignToTextTranslation(title: classifier),
                             ),
                           );
                         },
@@ -245,15 +258,24 @@ class _HomeState extends State<Home> {
 
   BoxDecoration boxDecoration(Color color, int index) {
     return BoxDecoration(
-        color: Colors.white,
-        border: borderList[index]
-            ? Border.all(color: color, width: 3.0)
-            : Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(40),
-        boxShadow: const [
-          BoxShadow(offset: Offset(0, 2), blurRadius: 10, color: Colors.grey),
-          BoxShadow(offset: Offset(-5, -5), blurRadius: 15, color: Colors.white)
-        ]);
+      color: Colors.white,
+      border: borderList[index]
+          ? Border.all(color: color, width: 3.0)
+          : Border.all(color: Colors.grey.shade300),
+      borderRadius: BorderRadius.circular(40),
+      boxShadow: const [
+        BoxShadow(
+          offset: Offset(0, 2),
+          blurRadius: 10,
+          color: Colors.grey,
+        ),
+        BoxShadow(
+          offset: Offset(-5, -5),
+          blurRadius: 15,
+          color: Colors.white,
+        )
+      ],
+    );
   }
 
   Widget buttonContent(String iconPath, String text) {
