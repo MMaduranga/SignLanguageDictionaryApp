@@ -96,7 +96,7 @@ class _TextToSignTranslationState extends State<TextToSignTranslation> {
                   width: 300,
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Image.asset(
+                    child: Image.asset(_signString == 'Text Translate'? 'assets/images/typing animation.gif':
                       'assets/alphabet-sign-lan/icons8-sign-language-$_signString-500.png',
                     ),
                   ),

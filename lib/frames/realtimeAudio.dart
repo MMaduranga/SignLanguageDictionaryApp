@@ -91,7 +91,7 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                     width: 300,
                     child: FittedBox(
                       fit: BoxFit.fill,
-                      child: Image.asset(
+                      child: Image.asset(_signString =='Audio Translate'? 'assets/icons/audio wave.gif':
                         'assets/alphabet-sign-lan/icons8-sign-language-$_signString-500.png',
                       ),
                     ),
