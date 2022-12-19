@@ -1,16 +1,9 @@
-# sign_language_dictionary_app
+# SignTra - Sign Language Translator
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="assets\readME\1.png" alt="MarineGEO circle logo"/>
+<img src="assets\readME\2.png" alt="MarineGEO circle logo"/>
+<img src="assets\readME\3.png" alt="MarineGEO circle logo"/>
+<img src="assets\readME\4.png" alt="MarineGEO circle logo"/>
+<img src="assets\readME\5.png" alt="MarineGEO circle logo"/>
+<img src="assets\readME\6.png" alt="MarineGEO circle logo"/>
+<img src="assets\readME\7.png" alt="MarineGEO circle logo"/>
