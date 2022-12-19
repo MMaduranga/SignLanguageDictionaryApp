@@ -62,7 +62,10 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                 children: [
                   Container(
                     padding: const EdgeInsets.only(
-                        left: 20, right: 20, bottom: 36 + 20),
+                      left: 20,
+                      right: 20,
+                      bottom: 36 + 20,
+                    ),
                     height: frameHeight * 0.75,
                     decoration: const BoxDecoration(
                       color: primaryColor,
@@ -91,8 +94,10 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                     width: 300,
                     child: FittedBox(
                       fit: BoxFit.fill,
-                      child: Image.asset(_signString =='Audio Translate'? 'assets/icons/audio wave.gif':
-                        'assets/alphabet-sign-lan/icons8-sign-language-$_signString-500.png',
+                      child: Image.asset(
+                        _signString == 'Audio Translate'
+                            ? 'assets/icons/audio wave.gif'
+                            : 'assets/alphabet-sign-lan/icons8-sign-language-$_signString-500.png',
                       ),
                     ),
                   ),
@@ -109,16 +114,20 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
                       visible: _signString == 'unavailable' ? true : false,
                       child: Text(
                         '$unavailableString is unavailable',
-                        style:
-                            const TextStyle(fontSize: 40, color: Colors.white),
+                        style: const TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: _signString == 'unavailable' ? false : true,
                       child: Text(
                         _signString.toUpperCase(),
-                        style:
-                            const TextStyle(fontSize: 40, color: Colors.white),
+                        style: const TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
@@ -153,17 +162,21 @@ class _RealTimeAudioTranslateState extends State<RealTimeAudioTranslate> {
             child: GestureDetector(
               onTap: () {
                 if (!audioController.isListening.value) {
-                  setState(() {
-                    audioController.speechText = 'Listening...';
-                  });
+                  setState(
+                    () {
+                      audioController.speechText = 'Listening...';
+                    },
+                  );
                   audioController.listen();
                 } else {
                   audioController.notListen();
                   setState(() {});
                   Future.delayed(const Duration(seconds: 2));
-                  setState(() {
-                    _renderTranslation();
-                  });
+                  setState(
+                    () {
+                      _renderTranslation();
+                    },
+                  );
                 }
               },
               child: AvatarGlow(
